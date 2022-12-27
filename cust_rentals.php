@@ -62,6 +62,7 @@
                         </h5>
                         <strong><br> <?php echo $car['model']?></strong><br>
                         <strong> <?php echo $car['model_year']?></strong><br>
+                        <strong> <?php echo $car['color']?></strong><br>
                         <strong>Payment :$<?php echo $car['payment']?></strong><br>
                         <strong>Pick up date :<?php echo $car['start_date']?></strong><br>
                         <strong>Return date :<?php echo $car['end_date']?></strong><br>

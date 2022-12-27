@@ -5,7 +5,7 @@
 </head>
 <body >
 <div class="reports">
-<a style="color:White;" href="admin_main.php">Back</a>
+
     <div class="form">
 	<center>
                         <button class="dropdown-btn">Reservations within a specific period: 
@@ -65,6 +65,7 @@
                                 <input type="submit" name="button" value="Search"/>
                             </form>
                         </div>
+                        <a style="color:White;" href="admin_main.php">Back</a>
                         <script>
                         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
                         var dropdown = document.getElementsByClassName("dropdown-btn");
