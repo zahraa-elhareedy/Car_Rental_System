@@ -10,12 +10,12 @@
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <div class="dropdown-container">
-                            <form name="carsearch" method="post" action="reservationWithinPeriod.php" >
+                            <form name="carsearch" method="post" action="periodReservations.php" >
         
-                                <label style="color:White;" for="startdate">From:</label><br>
+                                <label  for="startdate">From:</label><br>
                                 <input type="date" id="startdate" name='startdate'>
                                 <br>
-                                <label style="color:White;" for="enddate">To:</label><br>
+                                <label  for="enddate">To:</label><br>
                                 <input type="date" id="enddate" name="enddate" ><br>
                                 <br>
                                 <input type="submit" name="button" value="Search"/>
@@ -25,15 +25,28 @@
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <div class="dropdown-container">
-                            <form name="customersearch" method="post" >
-                                <label style="color:White;" for="startdate">From:</label><br>
+                            <form name="customersearch" method="post" action="carReservations.php">
+                                <label for="startdate">From:</label><br>
                                 <input type="date" id="startdate" name='startdate'>
                                 <br>
-                                <label style="color:White;" for="enddate">To:</label><br>
+                                <label for="enddate">To:</label><br>
                                 <input type="date" id="enddate" name="enddate" ><br>
-                                <br>
-                                <label style="color:White;" for="car_plate">Car Plate:</label><br>
+                                <label for="car_plate">Car Plate:</label><br>
                                 <input type="text" id="car_plate" name='car_plate'>
+                                <br>
+                                <br>
+                                <input type="submit" name="button" value="Search"/>
+                            </form>
+                        </div>
+                        <button class="dropdown-btn">Status of all cars on a specific day: 
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-container">
+                            <form name="carsearch" method="post" action="carStatus.php" >
+        
+                                <label  for="today">At:</label><br>
+                                <input type="date" id="today" name="today">
+                                <br>
                                 <br>
                                 <input type="submit" name="button" value="Search"/>
                             </form>

@@ -6,31 +6,27 @@
 	<center>
 	<table border="1" cellspacing="5" bgcolor="white"
 		height="100" width="500" cellpadding="5" id="TableScore">
-		<caption><b>Reservations</b></caption>
+		<caption><b>Car Status</b></caption>
 		<tr>
-            <th>Customer ID</th>
-			<th>Name</th>
-			<th>Email</th>
-            <th>Car Plate</th>
+            <th>Image</th>
+            <th>Plate ID</th>
             <th>Model</th>
             <th>Model Year</th>
             <th>Color</th>
             <th>Status</th>
-            <th>Daily Payment</th>
             <th>Office ID</th>
 		</tr>
 	
     <?php
-    $start_date = $_POST['startdate'];
-    $end_date = $_POST['enddate'];
+        $today = $_POST['today'];
         $conn = new mysqli('localhost', 'root', '', 'car_rental');
         if ($conn->connect_error) {
             echo "$conn->connect_error";
             die("Connection Failed : " . $conn->connect_error);
         }
         else{
-            $statement = $conn->prepare("select * from registration as r join car as c on r.car_plate=c.car_plate join customer as cust on r.cust_id=cust.cust_id  where r.start_date between ? AND ? ") ;
-            $statement->bind_param("ss",$start_date, $end_date);
+            $statement = $conn->prepare("select distinct * from car as c left join car_status as s on c.car_plate=s.car_plate where  s.start_date<= ? AND s.end_date>= ? ") ;
+            $statement->bind_param("ss",$today,$today);
             $statement->execute();
             $statement_result = $statement->get_result();
             $count= $statement_result->num_rows;
@@ -38,19 +34,18 @@
             if ($count != 0) {
                 // Process all rows
                 while ($row = mysqli_fetch_array($statement_result)) {
-                    $imageURL = 'uploads/'.$row["image"];
                     
-                       echo "<tr>";
-                       echo "<td>" . $row['cust_id'] . "</td>";
-                        echo "<td>" . $row['name'] . "</td>";
-                        echo "<td>" . $row['email'] . "</td>";
+                    
+                        echo "<tr>";
+                        echo "<td><img width='100' height='100'  src='uploads/".$row['image']."'></td>";
                         echo "<td>" . $row['car_plate'] . "</td>";
                         echo "<td>" . $row['model'] . "</td>";
                         echo "<td>" . $row['model_year'] . "</td>";
                         echo "<td>" . $row['color'] . "</td>";
                         echo "<td>" . $row['status'] . "</td>";
-                        echo "<td>" . $row['daily_price'] . "</td>";
                         echo "<td>" . $row['office_id'] . "</td>";
+                        echo "<td>" . $row['start_date'] . "</td>";
+                        echo "<td>" . $row['end_date'] . "</td>";
                         echo "</tr>";
                      
                     $count--;
