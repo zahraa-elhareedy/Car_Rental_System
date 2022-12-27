@@ -114,7 +114,7 @@
             $daily_price = $_POST['daily_price'];
         }
         if (isset($_POST['color'])) {
-            $daily_price = $_POST['color'];
+            $color = $_POST['color'];
         }
         if (isset($_POST['cname'])) {
             $cust_name = $_POST['cname'];
@@ -169,6 +169,7 @@
                         </h5>
                         <strong><br> <?php echo $row['model']?></strong><br>
                         <strong> <?php echo $row['model_year']?></strong><br>
+                        <strong> <?php echo $row['color']?></strong><br>
                         <strong>Daily Rent Price :$<?php echo $row['daily_price']?></strong><br>
                         </div>
                         </div>

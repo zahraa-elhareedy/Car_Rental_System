@@ -3,6 +3,14 @@
     $status="available";
     $car_plate=$_GET['car'];
     $start_date=$_POST['returndate'];
+    $startres=$_POST['startres'];
+    if($start_date<=$startres)
+    {
+        echo'<script>
+        window.alert("Dates Invalid");
+        window.location = "cust_rentals.php";
+        </script>';
+    }
     $register_no=$_POST['register_no'];
     $conn = new mysqli('localhost','root','','car_rental');
     if($conn->connect_error){

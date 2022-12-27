@@ -17,7 +17,7 @@
                         die("Connection Failed : ". $conn->connect_error);
                     } 
                     else {
-                        $get_plate = "SELECT `status`,car_plate FROM car_status WHERE car_plate = '$plate'  order by start_date desc limit 1 ";
+                        $get_plate = "SELECT * FROM car_status WHERE car_plate = '$plate'  order by start_date desc limit 1 ";
                         $result = $conn->query($get_plate);
                         $count = $result->num_rows;
                         if($count==0){
@@ -26,10 +26,12 @@
                         else{
                             $row = $result->fetch_assoc();
                             echo "<h4 style='color:White;'>"."Current Status is: ".$row["status"]."</h4>";
-                            
-                            if($row["status"] == "rented")
+                            if($start_date<=$row['start_date']){
+                                echo "<h4 style='color:White;'>"."Date Doesn't Cover Last Updated Status"."</h4>";
+
+                            }elseif($row["status"] == "rented")
                             {
-                            echo '<br>'."<h4 style='color:White;'>"."Cannot update"."</h4>".'<br>'.'<a href="admin_main.php">Back</a>';
+                            echo '<br>'."<h4 style='color:White;'>"."Cannot update"."</h4>";
                             
                             }else{
                                 ?>
