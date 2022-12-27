@@ -76,8 +76,9 @@
                         <div class="dropdown-container">
                             <form name="carsearch" action="return.php?car=<?php echo $car['car_plate']?>" method="post" >
                             <label  for="rdate">Choose Today's Date:</label><br>
-                            <input type="date" id="returndate" name='returndate'>
+                            <input type="date" id="returndate" name='returndate' required>
                             <input type="hidden" id="register_no" name="register_no" value="<?php echo $car['register_no']; ?>">
+                            <input type="hidden" id="startres" name="startres" value="<?php echo $car['start_date']; ?>">
                             <br>
                             <input type="submit" name="button" value="submit"/>
                             </form>
