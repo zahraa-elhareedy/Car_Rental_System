@@ -13,6 +13,11 @@
     die("Connection Failed : ". $conn->connect_error);
 } 
  else{
+    $state="rented";
+    $statement = $conn->prepare("update car_status SET end_date = ? where car_plate = ? AND status = ? order by start_date desc limit 1");
+    $statement->bind_param("sss",$start_date, $car_plate,$state);
+    $execval = $statement->execute();
+    $statement->close();
     $statement = $conn->prepare("insert into car_status (car_plate,status,start_date,end_date) values(?, ?, ?,?)");
     $statement->bind_param("ssss", $car_plate,$status, $start_date, $end_date);
     $execval = $statement->execute();
