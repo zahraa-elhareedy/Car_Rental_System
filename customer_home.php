@@ -16,10 +16,8 @@ if($conn->connect_error){
 if(isset($_POST['search_for']) && ($_POST['office']!=0)){
     $stat_avail='available';
     $value=$_POST['office'];
-    $_SESSION['office_id']=$value;
     if($_POST['search_for']!= "" || $_POST['search_for'] != null){
       $search_for = $_POST['search_for'];
-      echo  $search_for;
       $statement1 = $conn->prepare("SELECT * FROM CAR natural join office  WHERE office_id = ? AND `status` = ? AND(model = ? OR model_year = ? OR daily_price = ?  ) "); 
       $statement1->bind_param("dssdd",$value,$stat_avail,$search_for,$search_for,$search_for);
       $statement1->execute();
