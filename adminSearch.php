@@ -70,7 +70,7 @@
                     </nav>
                 </aside>
                 <main class="col px-0 flex-grow-1">
-                <a href="registration_login.html"><h3 style="text-align:right;padding-right:50px;">Signout</h3></a>;
+                
                     <div class="container py-3">
                     <?php
         if (isset($_POST['car_plate'])) {
@@ -86,7 +86,7 @@
             $daily_price = $_POST['daily_price'];
         }
         if (isset($_POST['color'])) {
-            $daily_price = $_POST['color'];
+            $color = $_POST['color'];
         }
         if (isset($_POST['cname'])) {
             $cust_name = $_POST['cname'];
@@ -137,6 +137,7 @@
                         </h5>
                         <strong><br> <?php echo $row['model']?></strong><br>
                         <strong> <?php echo $row['model_year']?></strong><br>
+                        <strong> <?php echo $row['color']?></strong><br>
                         <strong>Daily Rent Price :$<?php echo $row['daily_price']?></strong><br>
                         </div>
                         </div>

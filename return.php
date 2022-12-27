@@ -3,6 +3,14 @@
     $status="available";
     $car_plate=$_GET['car'];
     $start_date=$_POST['returndate'];
+    $startres=$_POST['startres'];
+    if($start_date<=$startres)
+    {
+        echo'<script>
+        window.alert("Dates Invalid");
+        window.location = "cust_rentals.php";
+        </script>';
+    }
     $register_no=$_POST['register_no'];
     $date = date_create($start_date);
     date_add($date,date_interval_create_from_date_string("4 years"));

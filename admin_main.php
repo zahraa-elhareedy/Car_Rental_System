@@ -28,7 +28,7 @@
             <input type="text" id="daily_price" name="daily_price" class="input-box" placeholder="Daily Rent Price" required>
             <input type="text" id="office" name="office" class="input-box" placeholder="Office ID" required >
             <label style="color:White;">Select image to upload:</label>
-            <input style="color:White;" type="file" name="file" id="file">
+            <input style="color:White;" type="file" name="file" id="file"required>
             <button type="submit" name="submit" >Add Car</button>
             <p class="message"><a href = "#">Update Status</a> </p>
             </form>
