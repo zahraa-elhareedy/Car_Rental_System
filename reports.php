@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="return.css">
+    <link rel="stylesheet" href="reports.css">
 </head>
 <body >
+<div class="reports">
+<a style="color:White;" href="admin_main.php">Back</a>
+    <div class="form">
 	<center>
-        
-    <button class="dropdown-btn">Reservations within a specific period: 
+                        <button class="dropdown-btn">Reservations within a specific period: 
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <div class="dropdown-container">
-                            <form name="carsearch" method="post" action="periodReservations.php" >
+                            <form name="reservation period" method="post" action="periodReservations.php" >
         
-                                <label  for="startdate">From:</label><br>
-                                <input type="date" id="startdate" name='startdate'>
+                                <label style="color:White;" for="startdate">From:</label><br>
+                                <input type="date" id="startdate" name="startdate">
                                 <br>
-                                <label  for="enddate">To:</label><br>
+                                <label style="color:White;" for="enddate">To:</label><br>
                                 <input type="date" id="enddate" name="enddate" ><br>
                                 <br>
                                 <input type="submit" name="button" value="Search"/>
                             </form>
                         </div>
-                        <button class="dropdown-btn"> Reservations of a car within a specific period
+                        <button class="dropdown-btn"> Reservations of a car within a specific period:
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <div class="dropdown-container">
                             <form name="customersearch" method="post" action="carReservations.php">
-                                <label for="startdate">From:</label><br>
-                                <input type="date" id="startdate" name='startdate'>
+                                <label style="color:White;" for="carreservations">From:</label><br>
+                                <input type="date" id="startdate" name="startdate">
                                 <br>
-                                <label for="enddate">To:</label><br>
+                                <label style="color:White;" for="enddate">To:</label><br>
                                 <input type="date" id="enddate" name="enddate" ><br>
-                                <label for="car_plate">Car Plate:</label><br>
-                                <input type="text" id="car_plate" name='car_plate'>
+                                <label style="color:White;" for="car_plate">Car Plate:</label><br>
+                                <input type="text" id="car_plate" name="car_plate">
                                 <br>
                                 <br>
                                 <input type="submit" name="button" value="Search"/>
@@ -42,10 +44,22 @@
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <div class="dropdown-container">
-                            <form name="carsearch" method="post" action="carStatus.php" >
+                            <form name="carstate" method="post" action="carStatus.php" >
         
-                                <label  for="today">At:</label><br>
+                                <label style="color:White;" for="today">At:</label><br>
                                 <input type="date" id="today" name="today">
+                                <br>
+                                <br>
+                                <input type="submit" name="button" value="Search"/>
+                            </form>
+                        </div>
+                        <button class="dropdown-btn"> Reservations of a specific customer:
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-container">
+                            <form name="customersearch" method="post" action="customerReservations.php">
+                                <label style="color:White;" for="cust_email">Customer Email:</label><br>
+                                <input type="email" id="cust_email" name="cust_email">
                                 <br>
                                 <br>
                                 <input type="submit" name="button" value="Search"/>
@@ -67,8 +81,7 @@
                         });
                         }
                         </script>
-
-</form>
 </center>
+                    </form>
 </body>
 </html>
