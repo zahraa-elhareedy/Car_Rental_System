@@ -6,7 +6,21 @@
     $end_date=$_POST['enddate'];
     $daily_price=$_POST['daily_price'];
     $cust_id = $_SESSION['cust_id'];
-    $office_id=$_SESSION['office_id'];
+    
+    $conn = new mysqli('localhost','root','','car_rental');
+    if($conn->connect_error){
+        echo "$conn->connect_error";
+    die("Connection Failed : ". $conn->connect_error);
+    } 
+    else{
+        $statement1 = $conn->prepare("select * from car where car_plate = ? ");
+        $statement1->bind_param("s",$car_plate);
+        $statement1->execute();
+        $car = $statement1->get_result()->fetch_assoc();
+        $statement1->close();
+        $conn->close();
+    }
+    $office_id=$car['office_id'];
     $sdate=new DateTime($start_date);
     $edate=new DateTime($end_date);
     $interval=$sdate->diff($edate);
