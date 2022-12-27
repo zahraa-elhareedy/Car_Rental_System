@@ -1,0 +1,8 @@
+
+body{
+    height: 100vh;
+   background-image:url(home.jpg);
+    background-size:contain;
+    background-position:center;
+    
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration and Login</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <!--w =word-->
+    <script>
+        function checkRegistration() {
+          var name_ = document.forms["register"]["name_reg"].value;
+          var email = document.forms["register"]["email_reg"].value;
+          var password1 = document.forms["register"]["password_reg"].value;
+          var password2 = document.forms["register"]["reentered_password"].value;
+          if (name_ == "" || name_ == null) {
+            alert("Name field must be filled out");
+            return false;
+          }
+          if (email == "" || email == null) {
+            alert("E-mail field must be filled out");
+            return false;
+          }
+          var mail_format =  /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+          if (!email.match(mail_format)){
+            alert("Invalid E-mail format!");
+            return false;
+
+          }
+          
+          if (password1 == "" || password1 == null) {
+            alert("Password field must be filled out");
+            return false;
+          }
+          if (password2 == "" || password1 == null) {
+            alert("Re-entered password field must be filled out");
+            return false;
+          }
+          
+           
+          if(password1 != password2){
+            alert("Passwords dont match! Please try again..");
+            return false;
+
+          }
+        }
+
+        function checkLogin(){
+          var email = document.forms["login"]["email_login"].value;
+          var password = document.forms["login"]["password_login"].value;
+          if (email == "" || email == null) {
+            alert("E-mail field must be filled out");
+            return false;
+          }
+          if (password == "" || password == null) {
+            alert("Password field must be filled out");
+            return false;
+          }
+
+        }
+        </script> 
+</head>
+
+<body>
+    <div class="login">
+       
+    <div class="form"  >
+            <form name="register" id="register" onsubmit="return checkRegistration()" method="post" action="connect.php"   class= "Register-form" >  
+            <h2>Register</h2> 
+            <input type="text" id="name_reg" name="name_reg" class="input-box" placeholder="Name" >
+            <input type="text" id="email_reg" name="email_reg" class="input-box" placeholder="E-mail address">
+            <input type="password" id="password_reg" name="password_reg" class="input-box" placeholder="Password" >
+            <input type="password" id="reentered_password" name="reentered_password" class="input-box" placeholder="Re-enter Password">
+            <button type="submit">Create</button>
+            <p class="message">Already Registered? <a href = "#">Login</a> </p>
+            </form>
+            <form name="login" id="login" onsubmit="return checkLogin()"  method="post" action="login.php" class= "Login-form"  > 
+            <h2>Login</h2> 
+            <input style="color:White;" type="radio" id="admin_login" name="login_type" value="Admin">
+            <label style="color:White;" for="admin_login">Admin</label><br>
+            <input style="color:White;" type="radio" id="customer_login" name="login_type" value="Customer">
+            <label style="color:White;" for="customer_login">Customer</label><br>
+            <input type="text" id="email_login" name="email_login" class="input-box" placeholder="E-mail address" >
+            <input type="password" id="password_login" name="password_login" class="input-box" placeholder="Password"  >
+            <button type="submit">Login</button>
+            <p class="message">Not Registered? <a href = "#">Register</a> </p>
+             </form>
+       
+
+        </div>
+    </div>
+    <script src='https://code.jquery.com/jquery-3.6.1.min.js'>
+     </script>
+     <script>
+        $('.message a').click(function(){
+            $('form').animate({height: "toggle", opacity : "toggle"}, "slow");
+        });
+     </script>
+
+
+
+</body>
+
+</html>
