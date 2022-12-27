@@ -4,11 +4,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="search_style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
     <body>
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark"style="background-color:black">
+    <a href="#" class="navbar-brand mb-0 h1">Car Rental</a>
+    <div class="collapse navbar-collapse" id="nav_id">
+    <ul class="navbar-nav">
+        <li
+            class="nav-item active">
+            <a href="customer_home.php" class="nav-link">Back</a>
+        </li>
+        <li
+            class="nav-item active">
+            <a href="registration_login.html" class="nav-link">Signout</a>
+        </li>
+
+    </ul></div>
+    </nav>
+    <div style="margin-top:30px">
         <div class="container-fluid">
             <div class="row min-vh-100 flex-column flex-md-row">
-                <aside class="col-12 col-md-20 col-xl-2 p-0 bg-dark flex-shrink-1">
+                <aside class="col-12 col-md-20 col-xl-2 p-0 flex-shrink-1" style="background-color:black">
                     <nav class="navbar navbar-expand-md navbar-dark bd-dark flex-md-column flex-row align-items-center py-2 text-center sticky-top" id=sidebar >
                         <div class="text-center p-3">
                         <button class="dropdown-btn">car 
@@ -51,6 +68,18 @@
                                 <input type="submit" name="button" value="Search"/>
                             </form>
                         </div>
+                        <button class="dropdown-btn">Reservation 
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-container">
+                            <form name="reservationsearch" method="post" >
+        
+                                <label style="color:White;" for="rday">Reservation Day:</label><br>
+                                <input type="date" id="rday" name='rday'><br>
+                                <br>
+                                <input type="submit" name="button" value="Search"/>
+                            </form>
+                        </div>
                         <script>
                         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
                         var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -70,7 +99,6 @@
                     </nav>
                 </aside>
                 <main class="col px-0 flex-grow-1">
-                
                     <div class="container py-3">
                     <?php
         if (isset($_POST['car_plate'])) {
@@ -93,6 +121,9 @@
         }
         if (isset($_POST['email'])) {
             $cust_email = $_POST['email'];
+        }
+        if (isset($_POST['rday'])) {
+            $res_day = $_POST['rday'];
         }
         $conn = new mysqli('localhost', 'root', '', 'car_rental');
         if ($conn->connect_error) {
@@ -128,6 +159,7 @@
                 while ($row = mysqli_fetch_array($qLog)) {
                     $imageURL = 'uploads/'.$row["image"];
                     ?>
+                    <div style="margin-top:15px">
                      <div class="col-md-3  mt-2">
                         <div class="card" name="display">
                         <img src="<?php echo $imageURL; ?>" alt="" />
@@ -150,9 +182,7 @@
                 return False;
             }
 
-        }else
-        {
-            if (isset($cust_email) || isset($cust_name)) {
+        }else if (isset($cust_email) || isset($cust_name)) {
                 $where = array();
                 if ($cust_name) {
                     $where[] = "name = '$cust_name'";
@@ -172,6 +202,7 @@
                     // Process all rows
                     while ($row = mysqli_fetch_array($qLog)) {
                         ?>
+                        <div style="margin-top:15px">
                          <div class="col-md-3  mt-2">
                             <div class="card" name="display">
                             <div class="card-body">
@@ -189,8 +220,46 @@
                     echo "Not Found";
                     return False;
                 }
+            }else if (isset($res_day)) {
+                $where = array();
+                if ($res_day) {
+                    $where[] = "start_date = '$res_day'";
+                }
+                $where = implode(' and ', $where);
+    
+                $result = "select * from registration natural join car where  " . $where;
+                // echo $result;
+                $qLog = mysqli_query($conn, $result);
+                $count = mysqli_num_rows($qLog);
+                
+                if ($count != 0) {
+                    // Process all rows
+                    while ($row = mysqli_fetch_array($qLog)) {
+                        $imageURL = 'uploads/'.$row["image"];
+                        ?>
+                        <div style="margin-top:15px">
+                         <div class="col-md-3  mt-2">
+                            <div class="card" name="display">
+                            <img src="<?php echo $imageURL; ?>" alt="" />
+                            <div class="card-body">
+                            <h5 class="card-title">
+                            <?php echo $row['car_plate']; ?>
+                            </h5>
+                            <strong><br> <?php echo $row['model']?></strong><br>
+                            <strong> <?php echo $row['model_year']?></strong><br>
+                            <strong>Daily Rent Price :$<?php echo $row['daily_price']?></strong><br>
+                            </div>
+                            </div>
+                            </div>
+                         <?php
+                        $count--;
+                    }
+                } else {
+                    echo "Not Found";
+                    return False;
+                }
             }
-        }
+
 
 ?>
     </div>
