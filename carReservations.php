@@ -3,6 +3,7 @@
 <head>
 </head>
 <body bgcolor="lightblue">
+<a style="color:White;" href="reports.php">Back</a>
 	<center>
 	<table border="1" cellspacing="5" bgcolor="white"
 		height="100" width="500" cellpadding="5" id="TableScore">
