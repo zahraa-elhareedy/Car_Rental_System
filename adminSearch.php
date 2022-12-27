@@ -178,6 +178,7 @@
                     $count--;
                 }
             } else {
+                ?><div style="margin-top:30px"><?php
                 echo "Not Found";
                 return False;
             }
@@ -217,6 +218,7 @@
                         $count--;
                     }
                 } else {
+                    ?><div style="margin-top:30px"><?php
                     echo "Not Found";
                     return False;
                 }
@@ -255,6 +257,7 @@
                         $count--;
                     }
                 } else {
+                    ?><div style="margin-top:30px"><?php
                     echo "Not Found";
                     return False;
                 }
