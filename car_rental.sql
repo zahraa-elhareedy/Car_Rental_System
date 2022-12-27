@@ -22,7 +22,7 @@ CREATE TABLE car_status (
   car_plate varchar(10) NOT NULL,
   status varchar(50) NOT NULL,
   start_date date NOT NULL,
-  end_date date NOT NULL,
+  end_date date ,
   PRIMARY KEY(car_plate,status,start_date,end_date)
 );
 CREATE TABLE customer (
@@ -43,7 +43,7 @@ CREATE TABLE registration (
   cust_id int NOT NULL,
   office_id int NOT NULL,
   payment decimal(10,2) NOT NULL,
-  pay_date date DEFAULT CURRENT_TIMESTAMP,
+  pay_date date ,
   pending decimal(10,2) ,
   start_date date NOT NULL,
   end_date date DEFAULT NULL,
