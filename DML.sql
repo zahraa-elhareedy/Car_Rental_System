@@ -7,11 +7,11 @@ INSERT INTO car (car_plate,model,model_year,color,daily_price,office_id,status,i
 INSERT INTO car (car_plate,model,model_year,color,daily_price,office_id,status,image) VALUES ('ER110','BMW',2019,'Blue',1500,2,'available','bmw.jpg');
 INSERT INTO car (car_plate,model,model_year,color,daily_price,office_id,status,image) VALUES ('PS110','KIA',2020,'Black',1500,1,'available','kia.jpg');
 INSERT INTO car (car_plate,model,model_year,color,daily_price,office_id,status,image) VALUES ('FT110','Mercedes',2022,'White',1500,2,'available','mercedes.jpg');
-INSERT INTO car_status(car_plate,status,start_date,end_date) VALUES ('AB111','available','2022-12-23','2026-12-23');
-INSERT INTO car_status(car_plate,status,start_date,end_date) VALUES ('CD110','available','2022-12-23','2026-12-23');
-INSERT INTO car_status(car_plate,status,start_date,end_date) VALUES ('ER110','available','2022-12-23','2026-12-23');
-INSERT INTO car_status(car_plate,status,start_date,end_date) VALUES ('PS110','available','2022-12-23','2026-12-23');
-INSERT INTO car_status(car_plate,status,start_date,end_date) VALUES ('FT110','available','2022-12-23','2026-12-23');
+INSERT INTO car_status(car_plate,status,start_date) VALUES ('AB111','available','2022-12-23');
+INSERT INTO car_status(car_plate,status,start_date) VALUES ('CD110','available','2022-12-23');
+INSERT INTO car_status(car_plate,status,start_date) VALUES ('ER110','available','2022-12-23');
+INSERT INTO car_status(car_plate,status,start_date) VALUES ('PS110','available','2022-12-23');
+INSERT INTO car_status(car_plate,status,start_date) VALUES ('FT110','available','2022-12-23');
 INSERT INTO customer(cust_id,name,email,password) VALUES ('1','Asala','asala@gmail.com',md5('111')) ;
 INSERT INTO customer(cust_id,name,email,password) VALUES ('2','Zahraa','zahraa@gmail.com',md5('111')) ;
 INSERT INTO customer(cust_id,name,email,password) VALUES ('3','Farah','farah@gmail.com',md5('111')) ;

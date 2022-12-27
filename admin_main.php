@@ -20,6 +20,7 @@
     <div class="form"  >
             <form name="register_car" id="register_car"  method="post" action="register_car.php"   class= "Register-car-form" enctype="multipart/form-data">  
             <h2>Register</h2> 
+            <input type="date" id="startdate" name='startdate' required>
             <input type="text" id="car_plate" name="car_plate" class="input-box" placeholder="Car Plate" required >
             <input type="text" id="model" name="model" class="input-box" placeholder="Model" required>
             <input type="text" id="year" name="year" class="input-box" placeholder="Year" required >
@@ -39,7 +40,7 @@
             <form name="update_status" id="update_status" onsubmit="return update_status_validation()" method="post" action="update_status.php" class= "update-status-form"  > 
             <h2>Update Status</h2> 
             <input type="text" id="car_plate" name="car_plate" class="input-box" placeholder="Car Plate" required >
-            <span id="message"></span><br>
+            <input type="date" id="startdate" name='startdate' required>
             <button type="submit">Check status</button>
             <p class="message"><a href = "#">Register Car</a> </p>
             <p class="message"><a href = "adminSearch.php">Search</a> </p>
@@ -54,7 +55,8 @@
         });
      </script>
 
-
+    </div>
+    </div>
 
 </body>
 
