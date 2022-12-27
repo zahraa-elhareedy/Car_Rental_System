@@ -3,24 +3,25 @@
     <link rel="stylesheet" href="admin_style.css">
 </head>
 <body>
+    <div>
     <div class="form">
         <form name="update_status" id="update_status"  method="post" action="" class= "update-status-form"  > 
             <h2>Update Status</h2> 
                 <?php
                     echo "<h4 style='color:White;'>".'Car_plate '.$_POST['car_plate']."</h4>".'<br>';
                     $plate = $_POST['car_plate'];
+                    $start_date=$_POST['startdate'];
                     $conn = new mysqli('localhost','root','','car_rental');
                     if($conn->connect_error){
                         echo "$conn->connect_error";
                         die("Connection Failed : ". $conn->connect_error);
                     } 
                     else {
-                        $get_plate = "SELECT `status`,car_plate FROM car WHERE car_plate = '$plate' ";
+                        $get_plate = "SELECT `status`,car_plate FROM car_status WHERE car_plate = '$plate'  order by start_date desc limit 1 ";
                         $result = $conn->query($get_plate);
                         $count = $result->num_rows;
                         if($count==0){
-                            echo "<h4 style='color:White;'>"."car plate does not exists!"."</h4>".'<br>'.'<a href="admin_main.php">Back</a>';
-                            return False;
+                            echo "<h4 style='color:White;'>"."car plate does not exists!"."</h4>".'<br>';
                         }
                         else{
                             $row = $result->fetch_assoc();
@@ -34,47 +35,61 @@
                                 ?>
                             
             <input type="hidden" id="car_plate" name="car_plate" value="<?php echo $_POST['car_plate']; ?>">
+            <input type="hidden" id="startdate" name="startdate" value="<?php echo $_POST['startdate']; ?>">
             <input type="text" id="status" name="status" class="input-box" placeholder="New Status" required >
             <button type="submit" id="submit" name="submit">Update status</button>
-            <br><span id="message"></span>
+            <br><span id="message" style='color:White;'></span>
             <?php
                     
-                }}
+                }
+            }
+            echo '<br>'.'<a href="admin_main.php">Back</a>';
                 $conn->close(); 
             }
             ?>
         </form>
     </div>
+        </div>
     <?php
         if(isset($_POST['submit']))
         {
             $status = $_POST['status'];
             if($status != "rented"){
+                if($status == "available")
+                {
+                    $state="inactive";
+                }else{
+                    $state="available";
+                }
                 $plate = $_POST['car_plate'];
-                $start_date = date("Y-m-d");
-                $date = date_create(date("Y-m-d"));
-                date_add($date,date_interval_create_from_date_string("4 years"));
-                $end_date = date_format($date,"Y-m-d");
+                $start_date = $_POST['startdate'];
                 $conn = new mysqli('localhost','root','','car_rental');
                 if($conn->connect_error){
                     echo "$conn->connect_error";
                     die("Connection Failed : ". $conn->connect_error);
                 }else{
-                    $statement = $conn->prepare("insert into car_status (car_plate,status,start_date,end_date) values(?, ?, ?,?)");
-                    $statement->bind_param("ssss", $plate,$status, $start_date, $end_date);
+                    $statement = $conn->prepare("insert into car_status (car_plate,status,start_date) values(?, ?, ?)");
+                    $statement->bind_param("sss", $plate,$status, $start_date);
                     $execval = $statement->execute();
                     $statement->close();
-                    $statement = $conn->prepare("update car SET `status` = ? where car_plate = ?");
+                    $statement = $conn->prepare("update car_status SET end_date = ? where car_plate = ? AND status = ? order by start_date desc limit 1");
+                    $statement->bind_param("sss",$start_date, $plate,$state);
+                    $execval = $statement->execute();
+                    $statement->close();
+                    $statement = $conn->prepare("update car SET status = ? where car_plate = ?");
                     $statement->bind_param("ss",$status, $plate);
                     $execval = $statement->execute();
                     $statement->close();
                     $conn->close();
-                    header('location:admin_main.php');
+                    echo'<script>
+                    alert("Car Status Update Done");
+                    window.location = "admin_main.php";
+                    </script>';
                 }  
             }else
             {echo '<script>
                 var e=document.getElementById("message");
-                message.innerHTML = ("Cannot update.");
+                message.innerHTML = ("Cannot update. Only use available/inactive");
                 </script>';}
         }
     ?> 
