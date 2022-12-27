@@ -66,13 +66,10 @@ if(!empty($_FILES["file"]["name"]))
 echo $statusMsg;
         $execval = $statement->execute();
         $statement->close();
-        $statement = $conn->prepare("insert into car_status(car_plate,status,start_date,end_date) values(?, ?, ?,?)");
-        $start_date = date("Y-m-d");
-        $date = date_create(date("Y-m-d"));
-        date_add($date,date_interval_create_from_date_string("4 years"));
-        $end_date = date_format($date,"Y-m-d");
+        $start_date = $_POST['start_date'];
+        $statement = $conn->prepare("insert into car_status(car_plate,status,start_date) values(?, ?, ?)");
         $status = "available";
-        $statement->bind_param("ssss", $plate, $status,$start_date,$end_date);
+        $statement->bind_param("sss", $plate, $status,$start_date);
         $execval = $statement->execute();
         $statement->close();
         $conn->close();

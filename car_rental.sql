@@ -44,7 +44,7 @@ CREATE TABLE registration (
   office_id int NOT NULL,
   payment decimal(10,2) NOT NULL,
   pay_date date ,
-  pending decimal(10,2) ,
+  penalty decimal(10,2) ,
   start_date date NOT NULL,
   end_date date DEFAULT NULL,
   return_date date DEFAULT NULL,
