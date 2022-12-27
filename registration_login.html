@@ -76,9 +76,9 @@
             </form>
             <form name="login" id="login" onsubmit="return checkLogin()"  method="post" action="login.php" class= "Login-form"  > 
             <h2>Login</h2> 
-            <input style="color:White;" type="radio" id="admin_login" name="login_type" value="Admin">
+            <input style="color:White;" type="radio" id="admin_login" name="login_type" value="Admin" required>
             <label style="color:White;" for="admin_login">Admin</label><br>
-            <input style="color:White;" type="radio" id="customer_login" name="login_type" value="Customer">
+            <input style="color:White;" type="radio" id="customer_login" name="login_type" value="Customer" required>
             <label style="color:White;" for="customer_login">Customer</label><br>
             <input type="text" id="email_login" name="email_login" class="input-box" placeholder="E-mail address" >
             <input type="password" id="password_login" name="password_login" class="input-box" placeholder="Password"  >
