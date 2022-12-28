@@ -8,17 +8,45 @@
 <?php
  session_start();
 $ci= $_SESSION['cust_id'];
+$today=$_SESSION['today_date'];
 $conn = new mysqli('localhost','root','','car_rental');
 if($conn->connect_error){
     echo "$conn->connect_error";
     die("Connection Failed : ". $conn->connect_error);
-} 
+}
+$rented='rented';
+$inactive='inactive';
+$available='available';
+$statement1 = $conn->prepare("UPDATE CAR set status = ? WHERE car_plate in (SELECT car_plate from car_status where (start_date <= ? and end_date >= ?) and status =? ) "); 
+$statement1->bind_param("ssss",$inactive,$today,$today,$inactive);
+$statement1->execute();
+$cars = $statement1->get_result();
+$statement1->close();
+$statement1 = $conn->prepare("UPDATE CAR set status = ? WHERE car_plate in (SELECT car_plate from car_status where (start_date <= ? and (end_date >= ? or end_date is null)) and status =? ) "); 
+$statement1->bind_param("ssss",$available,$today,$today,$available);
+$statement1->execute();
+$cars = $statement1->get_result();
+$statement1->close();
+
+$statement1 = $conn->prepare("UPDATE CAR set status = ? WHERE car_plate in (SELECT car_plate from registration where (start_date <= ? and return_date >= ?) OR (return_date <= ? and is_returned = 0) ) and status !=?"); 
+$statement1->bind_param("sssss",$rented,$today,$today,$today,$inactive);
+$statement1->execute();
+$cars = $statement1->get_result();
+$statement1->close(); 
+
+$statement1 = $conn->prepare("UPDATE CAR set status = ? WHERE car_plate not in (SELECT car_plate from registration where (start_date <= ? and return_date >= ?) OR (return_date <= ? and is_returned = 0) ) and status !=?"); 
+$statement1->bind_param("sssss",$available,$today,$today,$today,$inactive);
+$statement1->execute();
+$cars = $statement1->get_result();
+$statement1->close(); 
+     
+
 if(isset($_POST['search_for']) && ($_POST['office']!=0)){
     $stat_avail='available';
     $value=$_POST['office'];
     if($_POST['search_for']!= "" || $_POST['search_for'] != null){
       $search_for = $_POST['search_for'];
-      $statement1 = $conn->prepare("SELECT * FROM CAR natural join office  WHERE office_id = ? AND `status` = ? AND(model = ? OR model_year = ? OR daily_price = ? color = ? ) "); 
+      $statement1 = $conn->prepare("SELECT * FROM CAR natural join office  WHERE office_id = ? AND `status` = ? AND(model = ? OR model_year = ? OR daily_price = ? OR color = ? ) "); 
       $statement1->bind_param("dssdds",$value,$stat_avail,$search_for,$search_for,$search_for,$search_for);
       $statement1->execute();
       $cars = $statement1->get_result();
@@ -30,7 +58,7 @@ if(isset($_POST['search_for']) && ($_POST['office']!=0)){
     $statement->execute();
     $cars = $statement->get_result();
     $statement->close();
-    $conn->close();}
+    }
   }
 else{
   $stat_avail='available';
@@ -40,6 +68,7 @@ else{
   $cars = $statement->get_result();
   $statement->close();
 }
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">

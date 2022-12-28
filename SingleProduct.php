@@ -57,7 +57,7 @@ $imageURL = 'uploads/'.$car["image"];
 		<div class="col-md-7">
 			<form class="form-inline" method="POST" action="rent.php">
 				<div class="form-group mb-2">
-                <label  for="sdate">Choose Today's Date:</label><br>
+                <label  for="sdate">Start Date:</label><br>
                 <input type="date" id="startdate" name='startdate' required><br>
                 <label  for="edate">End Date:</label><br>
                 <input type="date" id="enddate" name='enddate' required>
