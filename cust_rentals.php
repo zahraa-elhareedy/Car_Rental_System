@@ -64,9 +64,9 @@
                         <strong> <?php echo $car['model_year']?></strong><br>
                         <strong>Payment :$<?php echo $car['payment']?></strong><br>
                         <strong>Pick up date :<?php echo $car['start_date']?></strong><br>
-                        <strong>Return date :<?php echo $car['end_date']?></strong><br>
+                        <strong>Expected Return date :<?php echo $car['end_date']?></strong><br>
                 <?php
-                if($car['status']=='rented')
+                if($car['status']=='rented' && $car['is_returned']==FALSE)
                 {
                 ?>         
                         <button class="dropdown-btn">Return 
@@ -77,6 +77,8 @@
                             <label  for="rdate">Choose Today's Date:</label><br>
                             <input type="date" id="returndate" name='returndate'>
                             <input type="hidden" id="register_no" name="register_no" value="<?php echo $car['register_no']; ?>">
+                            <input type="hidden" id="end_date" name="end_date" value="<?php echo $car['end_date']; ?>">
+                            <input type="hidden" id="daily_price" name="daily_price" value="<?php echo $car['daily_price']; ?>">
                             <br>
                             <input type="submit" name="button" value="submit"/>
                             </form>
@@ -84,6 +86,29 @@
                         <?php
                         }else{?>
                             <strong style=" color: #013dca;">Returned</strong><br>
+                            <strong>Actual Return date :<?php echo $car['return_date']?></strong><br>
+                            <?php
+                            $penalty = 0;
+                               $sdate=new DateTime($car['return_date']);
+                               $edate=new DateTime($car['end_date']);
+                               if($sdate>$edate){
+                                $conn = new mysqli('localhost','root','','car_rental');
+                                if($conn->connect_error){
+                                echo "$conn->connect_error";
+                                die("Connection Failed : ". $conn->connect_error);
+                                                } 
+                                else{
+                                   $interval=$sdate->diff($edate);
+                                   $days=$interval->d;
+                                   $penalty=$days*$car['daily_price'];
+                                   $statement = $conn->prepare("update registration SET penalty = ? where car_plate = ? AND register_no = ?");
+                                   $statement->bind_param("dsd",$penalty,$car['car_plate'],$car['register_no']);
+                                   $execval = $statement->execute();
+                                   $statement->close();
+                             
+                               } }?>
+                               <strong>Penalty :<?php echo $penalty?></strong><br>
+
                             <?php }?>
                        </div>
                         </div>

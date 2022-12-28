@@ -21,8 +21,19 @@
     background-image:url(m4.jpg);
     aspect-ratio: auto 1 / 0.6;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-size: cover;
     
+}
+th{
+  background-color:gainsboro;
+}
+td{
+  background-color:aliceblue;
+}
+table{
+  margin-left: auto;
+  margin-right: auto;
 }
 .form{
   position: relative;

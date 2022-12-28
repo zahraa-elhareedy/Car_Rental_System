@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="reports.css">
 </head>
-<body bgcolor="lightblue">
+<body>
+<div>
 <a style="color:White;" href="reports.php">Back</a>
 	<center>
 	<table border="1" cellspacing="5" bgcolor="white"
 		height="100" width="500" cellpadding="5" id="TableScore">
-		<caption><b>Car Status</b></caption>
+		<caption><b><h1>Car Status</h1></b></caption>
 		<tr>
             <th>Image</th>
             <th>Plate ID</th>
@@ -45,8 +47,6 @@
                         echo "<td>" . $row['color'] . "</td>";
                         echo "<td>" . $row['status'] . "</td>";
                         echo "<td>" . $row['office_id'] . "</td>";
-                        echo "<td>" . $row['start_date'] . "</td>";
-                        echo "<td>" . $row['end_date'] . "</td>";
                         echo "</tr>";
                      
                     $count--;
@@ -59,5 +59,6 @@
 
         }
      ?>
+</div>
 </body>
 </html>

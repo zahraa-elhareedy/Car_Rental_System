@@ -4,9 +4,7 @@
     $car_plate=$_GET['car'];
     $start_date=$_POST['returndate'];
     $register_no=$_POST['register_no'];
-    $date = date_create($start_date);
-    date_add($date,date_interval_create_from_date_string("4 years"));
-    $end_date = date_format($date,"Y-m-d");
+    $end_date=$_POST['end_date'];
     $conn = new mysqli('localhost','root','','car_rental');
     if($conn->connect_error){
         echo "$conn->connect_error";
@@ -16,13 +14,13 @@
     $state="rented";
     $date=date_create($start_date);
     date_add($date,date_interval_create_from_date_string("1 day"));
-    $prev_date=date_format($date,"Y-m-d");
+    $next_date=date_format($date,"Y-m-d");
     $statement = $conn->prepare("update car_status SET end_date = ? where car_plate = ? AND status = ? order by start_date desc limit 1");
     $statement->bind_param("sss",$start_date, $car_plate,$state);
     $execval = $statement->execute();
     $statement->close();
-    $statement = $conn->prepare("insert into car_status (car_plate,status,start_date,end_date) values(?, ?, ?,?)");
-    $statement->bind_param("ssss", $car_plate,$status, $prev_date, $end_date);
+    $statement = $conn->prepare("insert into car_status (car_plate,status,start_date) values(?, ?, ?)");
+    $statement->bind_param("sss", $car_plate,$status, $next_date);
     $execval = $statement->execute();
     $statement->close();
     $statement = $conn->prepare("update car SET status = ? where car_plate = ?");
@@ -32,11 +30,17 @@
     $statement = $conn->prepare("update registration SET return_date = ? where register_no=?");
     $statement->bind_param("sd", $start_date,$register_no);
     $execval = $statement->execute(); 
+    $statement->close();
+    $true = TRUE;
+    $statement = $conn->prepare("update registration SET is_returned = ? where register_no=?");
+    $statement->bind_param("sd", $true,$register_no);
+    $execval = $statement->execute(); 
+    $statement->close();
 
 
     $conn->close();
     echo'<script>
     alert("Return Done");
-    window.location = "customer_home.php";
+    window.location = "cust_rentals.php";
     </script>';
  }
