@@ -6,7 +6,13 @@
     $end_date=$_POST['enddate'];
     $daily_price=$_POST['daily_price'];
     $cust_id = $_SESSION['cust_id'];
-    
+    if($end_date<=$start_date)
+    {
+        echo'<script>
+        window.alert("Dates Invalid");
+        window.location = "cust_rentals.php";
+        </script>';
+    }
     $conn = new mysqli('localhost','root','','car_rental');
     if($conn->connect_error){
         echo "$conn->connect_error";

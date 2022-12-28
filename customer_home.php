@@ -122,6 +122,7 @@ else{
                         </h5>
                         <strong><br> <?php echo $car['model']?></strong><br>
                         <strong> <?php echo $car['model_year']?></strong><br>
+                        <strong> <?php echo $car['color']?></strong><br>
                         <strong>Daily Rent Price :$<?php echo $car['daily_price']?></strong><br>
                         <strong> <?php echo $car['location']?></strong><br>
                         <p class="card-text">

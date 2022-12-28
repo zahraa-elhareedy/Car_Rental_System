@@ -62,6 +62,7 @@
                         </h5>
                         <strong><br> <?php echo $car['model']?></strong><br>
                         <strong> <?php echo $car['model_year']?></strong><br>
+                        <strong> <?php echo $car['color']?></strong><br>
                         <strong>Payment :$<?php echo $car['payment']?></strong><br>
                         <strong>Pick up date :<?php echo $car['start_date']?></strong><br>
                         <strong>Expected Return date :<?php echo $car['end_date']?></strong><br>
@@ -75,10 +76,14 @@
                         <div class="dropdown-container">
                             <form name="carsearch" action="return.php?car=<?php echo $car['car_plate']?>" method="post" >
                             <label  for="rdate">Choose Today's Date:</label><br>
-                            <input type="date" id="returndate" name='returndate'>
+                            <input type="date" id="returndate" name='returndate' required>
                             <input type="hidden" id="register_no" name="register_no" value="<?php echo $car['register_no']; ?>">
+
                             <input type="hidden" id="end_date" name="end_date" value="<?php echo $car['end_date']; ?>">
                             <input type="hidden" id="daily_price" name="daily_price" value="<?php echo $car['daily_price']; ?>">
+
+                            <input type="hidden" id="startres" name="startres" value="<?php echo $car['start_date']; ?>">
+
                             <br>
                             <input type="submit" name="button" value="submit"/>
                             </form>

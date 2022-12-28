@@ -15,10 +15,10 @@
   }
  .dropdown-container {
   display: none;
-  background-color: #262626;
+  background-color: #000000;
   padding-left: 8px;
 }
   /* On mouse-over */
  .dropdown-btn:hover {
-    color: #d30fb2;
+    color: #0fd319;
   }

@@ -58,9 +58,9 @@ $imageURL = 'uploads/'.$car["image"];
 			<form class="form-inline" method="POST" action="rent.php">
 				<div class="form-group mb-2">
                 <label  for="sdate">Choose Today's Date:</label><br>
-                <input type="date" id="startdate" name='startdate'><br>
+                <input type="date" id="startdate" name='startdate' required><br>
                 <label  for="edate">End Date:</label><br>
-                <input type="date" id="enddate" name='enddate'>
+                <input type="date" id="enddate" name='enddate' required>
                 <input type="hidden" id="car_plate" name="car_plate" value="<?php echo $car_plate; ?>">
                 <input type="hidden" id="daily_price" name="daily_price" value="<?php echo $car['daily_price']; ?>">
 				</div>
@@ -75,6 +75,7 @@ $imageURL = 'uploads/'.$car["image"];
             <strong><?php echo $car['car_plate']?></strong>
             <strong><br> <?php echo $car['model']?></strong><br>
             <strong> <?php echo $car['model_year']?></strong><br>
+            <strong> <?php echo $car['color']?></strong><br>
             <strong>Daily Rent Price :$<?php echo $car['daily_price']?></strong><br>
 		</div>
 	</div>
