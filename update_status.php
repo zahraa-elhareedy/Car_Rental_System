@@ -26,7 +26,7 @@
                         else{
                             $row = $result->fetch_assoc();
                             echo "<h4 style='color:White;'>"."Current Status is: ".$row["status"]."</h4>";
-                            if($start_date<=$row['start_date']){
+                            if($start_date<$row['start_date']){
                                 echo "<h4 style='color:White;'>"."Date Doesn't Cover Last Updated Status"."</h4>";
 
                             }elseif($row["status"] == "rented")
