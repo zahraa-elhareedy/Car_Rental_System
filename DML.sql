@@ -7,7 +7,7 @@ INSERT INTO car (car_plate,model,model_year,color,daily_price,office_id,status,i
 INSERT INTO car (car_plate,model,model_year,color,daily_price,office_id,status,image) VALUES ('ER110','BMW',2019,'Blue',1500,2,'available','bmw.jpg');
 INSERT INTO car (car_plate,model,model_year,color,daily_price,office_id,status,image) VALUES ('PS110','KIA',2020,'Black',1500,1,'available','kia.jpg');
 INSERT INTO car (car_plate,model,model_year,color,daily_price,office_id,status,image) VALUES ('FT110','Mercedes',2022,'White',1500,2,'available','mercedes.jpg');
-INSERT INTO car_status(car_plate,status,start_date) VALUES ('AB111','available','2022-12-23','2022-12-24');
+INSERT INTO car_status(car_plate,status,start_date,end_date) VALUES ('AB111','available','2022-12-23','2022-12-24');
 INSERT INTO car_status(car_plate,status,start_date) VALUES ('CD110','available','2022-12-23');
 INSERT INTO car_status(car_plate,status,start_date) VALUES ('ER110','available','2022-12-23');
 INSERT INTO car_status(car_plate,status,start_date) VALUES ('PS110','available','2022-12-23');
@@ -18,4 +18,4 @@ INSERT INTO customer(cust_id,name,email,password) VALUES ('3','Farah','farah@gma
 INSERT INTO customer(cust_id,name,email,password) VALUES ('4','Abdelrahman','abdel@gmail.com',md5('222')) ;
 INSERT INTO registration(register_no,car_plate,cust_id,office_id,payment,pay_date,penalty,start_date,end_date,return_date)
 VALUES(1,'AB111',4,1,3000,'2022-12-25',0,'2022-12-25','2022-12-28','2022-12-28');
-INSERT INTO car_status(car_plate,status,start_date) VALUES ('AB111','rented','2022-12-25','2022-12-28');
+INSERT INTO car_status(car_plate,status,start_date,end_date) VALUES ('AB111','rented','2022-12-25','2022-12-28');
