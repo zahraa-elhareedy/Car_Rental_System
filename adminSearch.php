@@ -13,7 +13,7 @@
     <ul class="navbar-nav">
         <li
             class="nav-item active">
-            <a href="customer_home.php" class="nav-link">Back</a>
+            <a href="admin_main.php" class="nav-link">Back</a>
         </li>
         <li
             class="nav-item active">
@@ -145,7 +145,7 @@
                 $where[] = "daily_price=$daily_price";
             }
             if ($color) {
-                $where[] = "color=$color";
+                $where[] = "color='$color'";
             }
             $where = implode(' and ', $where);
 
@@ -249,6 +249,7 @@
                             </h5>
                             <strong><br> <?php echo $row['model']?></strong><br>
                             <strong> <?php echo $row['model_year']?></strong><br>
+                            <strong> <?php echo $row['color']?></strong><br>
                             <strong>Daily Rent Price :$<?php echo $row['daily_price']?></strong><br>
                             </div>
                             </div>
