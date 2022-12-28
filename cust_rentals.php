@@ -67,7 +67,7 @@
                         <strong>Pick up date :<?php echo $car['start_date']?></strong><br>
                         <strong>Expected Return date :<?php echo $car['end_date']?></strong><br>
                 <?php
-                if($car['status']=='rented' && $car['is_returned']==FALSE)
+                if( $car['is_returned']==FALSE)
                 {
                 ?>         
                         <button class="dropdown-btn">Return 
@@ -75,7 +75,7 @@
                         </button>
                         <div class="dropdown-container">
                             <form name="carsearch" action="return.php?car=<?php echo $car['car_plate']?>" method="post" >
-                            <label  for="rdate">Choose Today's Date:</label><br>
+                            <label  for="rdate">Choose Return Date:</label><br>
                             <input type="date" id="returndate" name='returndate' required>
                             <input type="hidden" id="register_no" name="register_no" value="<?php echo $car['register_no']; ?>">
 

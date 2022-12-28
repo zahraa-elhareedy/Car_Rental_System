@@ -27,8 +27,10 @@ else {
                 else
                 {
                    $cu_id= $data['cust_id'];
+                   $today=$_POST['today_date'];
                     session_start();
                     $_SESSION['cust_id'] =$cu_id;
+                    $_SESSION['today_date']=$today;
                     header('Location:customer_home.php');
                 }
                 
