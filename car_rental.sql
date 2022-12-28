@@ -44,10 +44,11 @@ CREATE TABLE registration (
   office_id int NOT NULL,
   payment decimal(10,2) NOT NULL,
   pay_date date ,
-  penalty decimal(10,2) ,
+  penalty decimal(10,2) DEFAULT 0.00 ,
   start_date date NOT NULL,
   end_date date DEFAULT NULL,
   return_date date DEFAULT NULL,
+  is_returned BOOLEAN DEFAULT FALSE,
   PRIMARY KEY(register_no)
 );
 ALTER TABLE car

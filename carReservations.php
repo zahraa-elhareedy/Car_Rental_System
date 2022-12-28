@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="reports.css">
 </head>
-<body bgcolor="lightblue">
+<body>
+<div>
 <a style="color:White;" href="reports.php">Back</a>
 	<center>
 	<table border="1" cellspacing="5" bgcolor="white"
 		height="100" width="500" cellpadding="5" id="TableScore">
-		<caption><b>Reservations</b></caption>
+		<caption><b><h1>Reservations</h1></b></caption>
 		<tr>
             <th>Image</th>
+            <th>Start Date</th>
+            <th>Return Date</th>
             <th>Car Plate</th>
             <th>Model</th>
             <th>Model Year</th>
@@ -17,9 +21,7 @@
             <th>Payment</th>
             <th>Office ID</th>
             <th>Reservation Number</th>
-			<th>Start Date</th>
-			<th>End Date</th>
-            <th>Return Date</th>
+			<th>Is Returned?</th>
             <th>Customer ID</th>
 			<th>Name</th>
 			<th>Email</th>
@@ -47,19 +49,21 @@
                     
                         echo "<tr>";
                         echo "<td><img width='100' height='100'  src='uploads/".$row['image']."'></td>";
-                        echo "<td>" . $row['car_plate'] . "</td>";
-                        echo "<td>" . $row['model'] . "</td>";
-                        echo "<td>" . $row['model_year'] . "</td>";
-                        echo "<td>" . $row['color'] . "</td>";
-                        echo "<td>" . $row['payment'] . "</td>";
-                        echo "<td>" . $row['office_id'] . "</td>";
-                        echo "<td>" . $row['register_no'] . "</td>";
                         echo "<td>" . $row['start_date'] . "</td>";
-                        echo "<td>" . $row['end_date'] . "</td>";
                         echo "<td>" . $row['return_date'] . "</td>";
-                        echo "<td>" . $row['cust_id'] . "</td>";
-                        echo "<td>" . $row['name'] . "</td>";
-                        echo "<td>" . $row['email'] . "</td>";
+                        echo "<td style='background-color:aliceblue;'>" . $row['car_plate'] . "</td>";
+                        echo "<td style='background-color:aliceblue;'>" . $row['model'] . "</td>";
+                        echo "<td style='background-color:aliceblue;'>" . $row['model_year'] . "</td>";
+                        echo "<td style='background-color:aliceblue;'>" . $row['color'] . "</td>";
+                        echo "<td style='background-color:aliceblue;'>" . $row['payment'] . "</td>";
+                        echo "<td style='background-color:aliceblue;'>" . $row['office_id'] . "</td>";
+                        echo "<td style='background-color:aliceblue;'>" . $row['register_no'] . "</td>";
+                        if($row['is_returned']==1)
+                        {echo "<td style='background-color:aliceblue;'> Yes </td>";}
+                        else{echo "<td style='background-color:aliceblue;'> No </td>";}
+                        echo "<td style='background-color:aliceblue;'>" . $row['cust_id'] . "</td>";
+                        echo "<td style='background-color:aliceblue;'>" . $row['name'] . "</td>";
+                        echo "<td style='background-color:aliceblue;'>" . $row['email'] . "</td>";
                         echo "</tr>";
                      
                     $count--;
@@ -72,5 +76,6 @@
 
         }
      ?>
+</div>
 </body>
 </html>
