@@ -65,7 +65,25 @@
                                 <input type="submit" name="button" value="Search"/>
                             </form>
                         </div>
+
+                        <button class="dropdown-btn">Payments within a specific period: 
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-container">
+                            <form name="reservation period" method="post" action="payments.php" >
+        
+                                <label style="color:White;" for="startdate">From:</label><br>
+                                <input type="date" id="startdate" name="startdate">
+                                <br>
+                                <label style="color:White;" for="enddate">To:</label><br>
+                                <input type="date" id="enddate" name="enddate" ><br>
+                                <br>
+                                <input type="submit" name="button" value="Search"/>
+                            </form>
+                        </div>
+
                         <a style="color:White;" href="admin_main.php">Back</a>
+
                         <script>
                         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
                         var dropdown = document.getElementsByClassName("dropdown-btn");
