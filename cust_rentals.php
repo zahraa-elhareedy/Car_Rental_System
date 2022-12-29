@@ -46,7 +46,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
     crossorigin="anonymous"></script>
+    
     <div style="margin-top:60px">
+    <h2 style = "text-align : center;">My Rentals</h2>
   <div class ="container">
   <div class ="row">
   <?php
@@ -67,7 +69,7 @@
                         <strong>Pick up date :<?php echo $car['start_date']?></strong><br>
                         <strong>Expected Return date :<?php echo $car['end_date']?></strong><br>
                 <?php
-                if($car['status']=='rented' && $car['is_returned']==FALSE)
+                if( $car['is_returned']==FALSE)
                 {
                 ?>         
                         <button class="dropdown-btn">Return 
@@ -75,7 +77,7 @@
                         </button>
                         <div class="dropdown-container">
                             <form name="carsearch" action="return.php?car=<?php echo $car['car_plate']?>" method="post" >
-                            <label  for="rdate">Choose Today's Date:</label><br>
+                            <label  for="rdate">Choose Return Date:</label><br>
                             <input type="date" id="returndate" name='returndate' required>
                             <input type="hidden" id="register_no" name="register_no" value="<?php echo $car['register_no']; ?>">
 
@@ -112,7 +114,7 @@
                                    $statement->close();
                              
                                } }?>
-                               <strong>Penalty :<?php echo $penalty?></strong><br>
+                               <strong>Penalty : $<?php echo $penalty?></strong><br>
 
                             <?php }?>
                        </div>
