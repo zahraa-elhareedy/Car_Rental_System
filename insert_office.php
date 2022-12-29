@@ -23,7 +23,7 @@ else {
         $statement->close();
         $conn->close();
         echo'<script>
-        alert("Registration successfull");
+        alert("Office Added Successfully");
         window.location = "admin_main.php";
         </script>';
     }

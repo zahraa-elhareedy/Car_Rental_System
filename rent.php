@@ -38,7 +38,7 @@
     die("Connection Failed : ". $conn->connect_error);    
 } 
  else{
-    $statement1 = $conn->prepare("SELECT * from registration where car_plate =? and (NOT((start_date < ? and end_date < ?  )OR( start_date > ? and end_date > ? )))"); 
+    $statement1 = $conn->prepare("SELECT * from car_status where car_plate =? and ( status = 'rented' or status ='inactive') and (NOT((start_date < ? and end_date < ?  )OR( start_date > ? and end_date > ? )))"); 
 $statement1->bind_param("sssss",$car_plate,$start_date,$start_date,$end_date,$end_date);
 $statement1->execute();
 $cars = $statement1->get_result();
@@ -49,14 +49,20 @@ if($cars->num_rows==0){
     date_sub($date,date_interval_create_from_date_string("1 day"));
     $prev_date=date_format($date,"Y-m-d");
     $statement = $conn->prepare("update car_status SET end_date = ? where car_plate = ? AND status = ? AND start_date < ? order by start_date desc limit 1");
-    $statement->bind_param("ssss",$prev_date, $car_plate,$state,$start_date);
+    $statement->bind_param("ssss",$prev_date, $car_plate,$state,$start_date);//update end of available
     $execval = $statement->execute();
     $statement->close();
     $statement = $conn->prepare("insert into car_status (car_plate,status,start_date,end_date) values(?, ?, ?,?)");
-    $statement->bind_param("ssss", $car_plate,$status, $start_date, $end_date);
+    $statement->bind_param("ssss", $car_plate,$status, $start_date, $end_date);//insert rented
     $execval = $statement->execute();
     $statement->close();
-
+    $date=date_create($end_date);
+    date_add($date,date_interval_create_from_date_string("1 day"));
+    $next_date=date_format($date,"Y-m-d");
+    $statement = $conn->prepare("insert into car_status (car_plate,status,start_date) values(?, ?, ?)");
+    $statement->bind_param("sss", $car_plate,$state, $next_date);//insert new available
+    $execval = $statement->execute();
+    $statement->close();
     $statement = $conn->prepare("insert into registration (car_plate ,cust_id , office_id, payment,pay_date,start_date,end_date,return_date) values(?,?,?,?,?,?,?,?)");
     $statement->bind_param("sdddssss", $car_plate,$cust_id,$office_id,$payment,$start_date, $start_date, $end_date, $end_date);
     $execval = $statement->execute();
