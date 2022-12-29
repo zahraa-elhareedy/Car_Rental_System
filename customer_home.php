@@ -8,38 +8,66 @@
 <?php
  session_start();
 $ci= $_SESSION['cust_id'];
+$today=$_SESSION['today_date'];
 $conn = new mysqli('localhost','root','','car_rental');
 if($conn->connect_error){
     echo "$conn->connect_error";
     die("Connection Failed : ". $conn->connect_error);
-} 
+}
+$rented='rented';
+$inactive='inactive';
+$available='available';
+$statement1 = $conn->prepare("UPDATE CAR set status = ? WHERE car_plate in (SELECT car_plate from car_status where (start_date <= ? and end_date >= ?) and status =? ) "); 
+$statement1->bind_param("ssss",$inactive,$today,$today,$inactive);
+$statement1->execute();
+$cars = $statement1->get_result();
+$statement1->close();
+$statement1 = $conn->prepare("UPDATE CAR set status = ? WHERE car_plate in (SELECT car_plate from car_status where (start_date <= ? and (end_date >= ? or end_date is null)) and status =? ) "); 
+$statement1->bind_param("ssss",$available,$today,$today,$available);
+$statement1->execute();
+$cars = $statement1->get_result();
+$statement1->close();
+
+$statement1 = $conn->prepare("UPDATE CAR set status = ? WHERE car_plate in (SELECT car_plate from registration where (start_date <= ? and return_date >= ?) OR (return_date <= ? and is_returned = 0) ) and status !=?"); 
+$statement1->bind_param("sssss",$rented,$today,$today,$today,$inactive);
+$statement1->execute();
+$cars = $statement1->get_result();
+$statement1->close(); 
+
+$statement1 = $conn->prepare("UPDATE CAR set status = ? WHERE car_plate not in (SELECT car_plate from registration where (start_date <= ? and return_date >= ?) OR (return_date <= ? and is_returned = 0) ) and status !=?"); 
+$statement1->bind_param("sssss",$available,$today,$today,$today,$inactive);
+$statement1->execute();
+$cars = $statement1->get_result();
+$statement1->close(); 
+     
+
 if(isset($_POST['search_for']) && ($_POST['office']!=0)){
     $stat_avail='available';
     $value=$_POST['office'];
     if($_POST['search_for']!= "" || $_POST['search_for'] != null){
       $search_for = $_POST['search_for'];
-      $statement1 = $conn->prepare("SELECT * FROM CAR natural join office  WHERE office_id = ? AND `status` = ? AND(model = ? OR model_year = ? OR daily_price = ? color = ? ) "); 
-      $statement1->bind_param("dssdds",$value,$stat_avail,$search_for,$search_for,$search_for,$search_for);
+      $statement1 = $conn->prepare("SELECT * FROM CAR natural join office  WHERE office_id = ?  AND(model = ? OR model_year = ? OR daily_price = ? OR color = ? ) "); 
+      $statement1->bind_param("dsdds",$value,$search_for,$search_for,$search_for,$search_for);
       $statement1->execute();
       $cars = $statement1->get_result();
       $statement1->close();
       
     }
-    else{$statement = $conn->prepare("SELECT * FROM CAR natural join office WHERE office_id = ? AND status = ?"); 
-    $statement->bind_param("ds",$value,$stat_avail);
+    else{$statement = $conn->prepare("SELECT * FROM CAR natural join office WHERE office_id = ?  "); 
+    $statement->bind_param("d",$value);
     $statement->execute();
     $cars = $statement->get_result();
     $statement->close();
-    $conn->close();}
+    }
   }
 else{
   $stat_avail='available';
-  $statement = $conn->prepare("SELECT * FROM CAR natural join office WHERE status = ?"); 
-  $statement->bind_param("s",$stat_avail);
+  $statement = $conn->prepare("SELECT * FROM CAR natural join office "); 
   $statement->execute();
   $cars = $statement->get_result();
   $statement->close();
 }
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -124,6 +152,7 @@ else{
                         <strong> <?php echo $car['model_year']?></strong><br>
                         <strong> <?php echo $car['color']?></strong><br>
                         <strong>Daily Rent Price :$<?php echo $car['daily_price']?></strong><br>
+                        <strong>Status Today :<?php if($car['status']=='inactive'){echo "out of service";}else{echo $car['status'];}?></strong><br>
                         <strong> <?php echo $car['location']?></strong><br>
                         <p class="card-text">
                             <a href="SingleProduct.php?car=<?php echo $car['car_plate']?>" class="btn btn-primary btn-sm">
@@ -137,6 +166,8 @@ else{
     <?php
     }
     ?>
+    </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> 
