@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="search_style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV">
 </head>
     <body>
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark"style="background-color:black">
@@ -156,17 +156,18 @@
                                 $count = mysqli_num_rows($qLog);
                                 
                                 if ($count != 0) {
+                        ?>
                                     // Process all rows
+                                    <div style="margin-top:15px">
+                                    <div class ="container">
+                                    <div class ="row">
+                        <?php
                                     while ($row = mysqli_fetch_array($qLog)) {
                                         $imageURL = 'uploads/'.$row["image"];
                         ?>
-                                        
-                                        <div style="margin-top:15px">
-                                        <div class ="container">
-                                        <div class ="row">
                                         <div class="col-md-3  mt-2">
                                             <div class="card" name="display">
-                                                <img src="<?php echo $imageURL; ?>" alt="" />
+                                                <img class="card-img-top" src="<?php echo $imageURL; ?>" alt="" />
                                                 <div class="card-body">
                                                     <h5 class="card-title">
                                                     <?php echo $row['car_plate']; ?>
@@ -178,12 +179,14 @@
                                                 </div>    
                                             </div>
                                         </div>
-                                        </div>
-                                        </div>
-                                        </div>
                         <?php
                                         $count--;
                                     }
+                        ?>
+                                    </div>
+                                    </div>
+                                    </div>
+                        <?php
                                 }else{
                                     echo "<div style='margin-top:30px'>"."Not Found"."</div>";
                                     return False;
@@ -240,17 +243,18 @@
                                 $count = mysqli_num_rows($qLog);
                                 
                                 if ($count != 0) {
+                        ?>
+                                    <div style="margin-top:15px">
+                                    <div class ="container">
+                                    <div class ="row">
+                        <?php
                                     // Process all rows
                                     while ($row = mysqli_fetch_array($qLog)) {
                                         $imageURL = 'uploads/'.$row["image"];
                         ?>
-
-                                        <div style="margin-top:15px">
-                                        <div class ="container">
-                                        <div class ="row">
                                         <div class="col-md-3  mt-2">
                                         <div class="card" name="display">
-                                            <img src="<?php echo $imageURL; ?>" alt="" />
+                                            <img class="card-img-top" src="<?php echo $imageURL; ?>" alt="" />
                                             <div class="card-body">
                                                 <h5 class="card-title">
                                                 <?php echo $row['car_plate']; ?>
@@ -262,12 +266,14 @@
                                             </div>    
                                         </div>
                                         </div>
-                                        </div>
-                                        </div>
-                                        </div>
                         <?php
                                         $count--;
                                     }
+                        ?>            
+                                    </div>
+                                    </div>
+                                    </div>
+                        <?php
                                 } else {
                                     echo "<div style='margin-top:30px'>"."Not Found"."</div>";
                                     return False;
@@ -282,5 +288,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     </body>
 </html>
