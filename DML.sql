@@ -15,7 +15,7 @@ INSERT INTO car_status(car_plate,status,start_date) VALUES ('FT110','available',
 INSERT INTO customer(cust_id,name,email,password) VALUES ('1','Asala','asala@gmail.com',md5('111')) ;
 INSERT INTO customer(cust_id,name,email,password) VALUES ('2','Zahraa','zahraa@gmail.com',md5('111')) ;
 INSERT INTO customer(cust_id,name,email,password) VALUES ('3','Farah','farah@gmail.com',md5('111')) ;
-INSERT INTO customer(cust_id,name,email,password) VALUES ('4','Abdelrahman','abdel@gmail.com',md5('222')) ;
 INSERT INTO registration(register_no,car_plate,cust_id,office_id,payment,pay_date,penalty,start_date,end_date,return_date)
-VALUES(1,'AB111',4,1,3000,'2022-12-25',0,'2022-12-25','2022-12-28','2022-12-28');
+VALUES(1,'AB111',2,1,3000,'2022-12-25',0,'2022-12-25','2022-12-28','2022-12-28');
 INSERT INTO car_status(car_plate,status,start_date,end_date) VALUES ('AB111','rented','2022-12-25','2022-12-28');
+INSERT INTO car_status(car_plate,status,start_date) VALUES ('AB111','available','2022-12-29');

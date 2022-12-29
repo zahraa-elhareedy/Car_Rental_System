@@ -63,7 +63,7 @@ if(!empty($_FILES["file"]["name"]))
     $statusMsg = 'Please select a file to upload.';
 }
 // Display status message
-echo $statusMsg;
+
         $execval = $statement->execute();
         $statement->close();
         $start_date = $_POST['start_date'];

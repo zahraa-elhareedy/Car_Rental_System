@@ -2,9 +2,9 @@
     session_start();
     $status="available";
     $car_plate=$_GET['car'];
-    $start_date=$_POST['returndate'];
+    $return_date=$_POST['returndate'];
     $startres=$_POST['startres'];
-    if($start_date<=$startres)
+    if($return_date<=$startres)
     {
         echo'<script>
         window.alert("Dates Invalid");
@@ -22,20 +22,22 @@
 } 
  else{
     $state="rented";
-    $date=date_create($start_date);
+    $date=date_create($return_date);
     date_add($date,date_interval_create_from_date_string("1 day"));
     $next_date=date_format($date,"Y-m-d");
-    $statement = $conn->prepare("update car_status SET end_date = ? where car_plate = ? AND status = ? and start_date < ? order by start_date desc limit 1");
-    $statement->bind_param("ssss",$start_date, $car_plate,$state,$start_date);
+    $statement = $conn->prepare("update car_status SET end_date = ? where car_plate = ? AND status = ? and start_date =?");
+    $statement->bind_param("ssss",$return_date, $car_plate,$state,$startres);//update end of rent
     $execval = $statement->execute();
     $statement->close();
-    $statement = $conn->prepare("insert into car_status (car_plate,status,start_date) values(?, ?, ?)");
-    $statement->bind_param("sss", $car_plate,$status, $next_date);
+    $date=date_create($end_date);
+    date_add($date,date_interval_create_from_date_string("1 day"));
+    $next_available_date=date_format($date,"Y-m-d");
+    $statement = $conn->prepare("update car_status SET start_date = ? where car_plate = ? AND status = ? and start_date =?");
+    $statement->bind_param("ssss",$next_date, $car_plate,$status,$next_available_date);//update start of available
     $execval = $statement->execute();
     $statement->close();
-  
     $statement = $conn->prepare("update registration SET return_date = ? where register_no=?");
-    $statement->bind_param("sd", $start_date,$register_no);
+    $statement->bind_param("sd", $return_date,$register_no);
     $execval = $statement->execute(); 
     $statement->close();
     $true = TRUE;
