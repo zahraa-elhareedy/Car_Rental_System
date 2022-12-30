@@ -39,7 +39,7 @@
             die("Connection Failed : " . $conn->connect_error);
         }
         else{
-            $statement = $conn->prepare("select * from registration as r join car as c on r.car_plate=c.car_plate join customer as cust on r.cust_id=cust.cust_id  where r.start_date between ? AND ? ") ;
+            $statement = $conn->prepare("select * from registration as r join car as c on r.car_plate=c.car_plate join customer as cust on r.cust_id=cust.cust_id  where r.start_date between ? AND ? order by start_date ") ;
             $statement->bind_param("ss",$start_date, $end_date);
             $statement->execute();
             $statement_result = $statement->get_result();

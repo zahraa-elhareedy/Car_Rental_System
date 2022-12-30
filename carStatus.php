@@ -28,7 +28,7 @@
             die("Connection Failed : " . $conn->connect_error);
         }
         else{
-            $statement = $conn->prepare("select distinct * from car as c left join car_status as s on c.car_plate=s.car_plate where  s.start_date<= ? AND s.end_date>= ? ") ;
+            $statement = $conn->prepare("select distinct * from car as c left join car_status as s on c.car_plate=s.car_plate where  s.start_date<= ? AND (s.end_date>= ? or s.end_date is null)") ;
             $statement->bind_param("ss",$today,$today);
             $statement->execute();
             $statement_result = $statement->get_result();
