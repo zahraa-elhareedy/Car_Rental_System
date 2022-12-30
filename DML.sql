@@ -19,3 +19,5 @@ INSERT INTO registration(register_no,car_plate,cust_id,office_id,payment,pay_dat
 VALUES(1,'AB111',2,1,3000,'2022-12-25',0,'2022-12-25','2022-12-28','2022-12-28');
 INSERT INTO car_status(car_plate,status,start_date,end_date) VALUES ('AB111','rented','2022-12-25','2022-12-28');
 INSERT INTO car_status(car_plate,status,start_date) VALUES ('AB111','available','2022-12-29');
+INSERT INTO car (car_plate,model,model_year,color,daily_price,office_id,status,image) VALUES ('PS110','KIA',2020,'Black',1500,1,'available','kia.jpg');
+INSERT INTO car_status(car_plate,status,start_date) VALUES ('PS110','available','2022-12-23');
